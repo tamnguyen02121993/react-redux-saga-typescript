@@ -2,8 +2,15 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import { useEffect } from 'hoist-non-react-statics/node_modules/@types/react';
+import cityApi from 'api/cityApi';
 
 function App() {
+
+  useEffect(() => {
+    cityApi.getAll().then(response => console.log(response));
+  });
+
   return (
     <div className="App">
       <header className="App-header">
