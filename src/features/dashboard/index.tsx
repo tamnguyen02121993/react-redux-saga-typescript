@@ -9,9 +9,11 @@ import {
   selectLowestStudentList,
   selectRankingByCityList,
 } from './dashboardSlice';
-import { Box, Grid, LinearProgress, makeStyles } from '@material-ui/core';
+import { Box, Grid, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import { StatisticItem } from './components/StatisticItem';
 import { ChatBubble, ChatRounded, LinearScale, PeopleAlt } from '@material-ui/icons';
+import { Widget } from './components/Widget';
+import { StudentRankingList } from './components/StudentRankingList';
 
 export interface DashboardProps {}
 
@@ -40,13 +42,6 @@ export function Dashboard(props: DashboardProps) {
     dispatch(dashboardActions.fetchData());
   }, [dispatch]);
 
-  console.log({
-    loading,
-    statistics,
-    highestStudentList,
-    lowestStudentList,
-    rankingByCityList,
-  });
   return (
     <Box className={classes.root}>
       {/* Loading */}
@@ -86,6 +81,44 @@ export function Dashboard(props: DashboardProps) {
           />
         </Grid>
       </Grid>
+
+      {/* All Student Ranking Section */}
+      <Box mt={4}>
+        <Typography variant="h4">All Students</Typography>
+
+        <Box mt={4}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={6}>
+              <Widget title="Student with highest mark">
+                <StudentRankingList studentList={highestStudentList} />
+              </Widget>
+            </Grid>
+
+            <Grid item xs={12} md={6} lg={6}>
+              <Widget title="Student with lowest mark">
+                <StudentRankingList studentList={lowestStudentList} />
+              </Widget>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+
+      {/* Ranking by City Section */}
+      <Box mt={4}>
+        <Typography variant="h4">Ranking By City</Typography>
+
+        <Box mt={4}>
+          <Grid container spacing={3}>
+            {rankingByCityList.map((ranking) => (
+              <Grid item xs={12} md={6} lg={6}>
+                <Widget title={ranking.cityName}>
+                  <StudentRankingList studentList={ranking.rankingList} />
+                </Widget>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 }
