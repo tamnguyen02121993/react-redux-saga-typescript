@@ -15,8 +15,6 @@ import { ChatBubble, ChatRounded, LinearScale, PeopleAlt } from '@material-ui/ic
 import { Widget } from './components/Widget';
 import { StudentRankingList } from './components/StudentRankingList';
 
-export interface DashboardProps {}
-
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
@@ -29,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Dashboard(props: DashboardProps) {
+export default function Dashboard() {
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectDashboardLoading);
   const statistics = useAppSelector(selectDashboardStatistics);
