@@ -8,7 +8,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { Student } from 'models';
 import React from 'react';
-import { Paper } from '@material-ui/core';
+import { capitalizeString, getMarkColor } from 'utils';
+import { Box, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   table: {},
@@ -43,8 +44,12 @@ export function StudentTable({ studentList, onEdit, onRemove }: StudentTableProp
             <TableRow key={student.id}>
               <TableCell>{student.id}</TableCell>
               <TableCell>{student.name}</TableCell>
-              <TableCell>{student.gender}</TableCell>
-              <TableCell>{student.mark}</TableCell>
+              <TableCell>{capitalizeString(student.gender)}</TableCell>
+              <TableCell>
+                <Box color={getMarkColor(student.mark)} fontWeight="bold">
+                  {student.mark}
+                </Box>
+              </TableCell>
               <TableCell>{student.city}</TableCell>
               <TableCell align="right">
                 <Button
