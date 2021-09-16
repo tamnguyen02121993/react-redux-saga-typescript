@@ -41,6 +41,6 @@ function* watchLoginFlow() {
   }
 }
 
-export function* authSaga() {
+export default function* authSaga() {
   yield fork(watchLoginFlow);
 }

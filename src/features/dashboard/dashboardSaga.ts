@@ -89,6 +89,6 @@ function* fetchDashboardData() {
   }
 }
 
-export function* dashboardSaga() {
+export default function* dashboardSaga() {
   yield takeLatest(dashboardActions.fetchData.type, fetchDashboardData);
 }

@@ -10,6 +10,7 @@ import {
   selectStudentPagination,
   studentActions,
 } from '../studentSlice';
+import { selectCityMap } from 'features/city/citySilce';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,7 @@ export default function ListPage() {
   const pagination = useAppSelector(selectStudentPagination);
   const filter = useAppSelector(selectStudentFilter);
   const loading = useAppSelector(selectStudentLoading);
+  const cityMap = useAppSelector(selectCityMap);
 
   const handlePageChange = (event: any, page: number) => {
     dispatch(
@@ -63,7 +65,7 @@ export default function ListPage() {
       </Box>
 
       {/* Student Table */}
-      <StudentTable studentList={studentList} />
+      <StudentTable studentList={studentList} cityMap={cityMap} />
 
       {/* Pagination */}
       <Box mt={2} display="flex" justifyContent="center">
