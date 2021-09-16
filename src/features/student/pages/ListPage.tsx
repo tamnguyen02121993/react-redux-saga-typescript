@@ -60,6 +60,10 @@ export default function ListPage() {
     dispatch(studentActions.setFilterWithDebounce(newFilter));
   };
 
+  const handleFilterChange = (newFilter: ListParams) => {
+    dispatch(studentActions.setFilter(newFilter));
+  };
+
   return (
     <Box className={classes.root}>
       {/* Loading */}
@@ -74,7 +78,12 @@ export default function ListPage() {
 
       {/* Student Filters */}
       <Box mb={2}>
-        <StudentFilters filter={filter} cityList={cityList} onSearchChange={handleSearchChange} />
+        <StudentFilters
+          filter={filter}
+          cityList={cityList}
+          onSearchChange={handleSearchChange}
+          onChange={handleFilterChange}
+        />
       </Box>
 
       {/* Student Table */}
