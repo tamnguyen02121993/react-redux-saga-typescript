@@ -2,7 +2,8 @@ import { Box, Typography, Button, makeStyles, LinearProgress } from '@material-u
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import React, { useEffect } from 'react';
 import { Pagination } from '@material-ui/lab';
-import { StudentTable } from '../components/StudentTable';
+import StudentTable from '../components/StudentTable';
+import StudentFilters from '../components/StudentFilters';
 import {
   selectStudentFilter,
   selectStudentList,
@@ -10,7 +11,8 @@ import {
   selectStudentPagination,
   studentActions,
 } from '../studentSlice';
-import { selectCityMap } from 'features/city/citySilce';
+import { selectCityList, selectCityMap } from 'features/city/citySilce';
+import { ListParams } from 'models';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +41,7 @@ export default function ListPage() {
   const filter = useAppSelector(selectStudentFilter);
   const loading = useAppSelector(selectStudentLoading);
   const cityMap = useAppSelector(selectCityMap);
+  const cityList = useAppSelector(selectCityList);
 
   const handlePageChange = (event: any, page: number) => {
     dispatch(
@@ -52,6 +55,11 @@ export default function ListPage() {
   useEffect(() => {
     dispatch(studentActions.fetchStudentList(filter));
   }, [dispatch, filter]);
+
+  const handleSearchChange = (newFilter: ListParams) => {
+    dispatch(studentActions.setFilterWithDebounce(newFilter));
+  };
+
   return (
     <Box className={classes.root}>
       {/* Loading */}
@@ -62,6 +70,11 @@ export default function ListPage() {
         <Button variant="contained" color="primary">
           Add new student
         </Button>
+      </Box>
+
+      {/* Student Filters */}
+      <Box mb={2}>
+        <StudentFilters filter={filter} cityList={cityList} onSearchChange={handleSearchChange} />
       </Box>
 
       {/* Student Table */}

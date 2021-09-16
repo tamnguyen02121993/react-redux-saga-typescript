@@ -24,7 +24,12 @@ export interface StudentTableProps {
   onEdit?: (student: Student) => void;
   onRemove?: (student: Student) => void;
 }
-export function StudentTable({ studentList, cityMap, onEdit, onRemove }: StudentTableProps) {
+export default function StudentTable({
+  studentList,
+  cityMap,
+  onEdit,
+  onRemove,
+}: StudentTableProps) {
   const classes = useStyles();
 
   return (
