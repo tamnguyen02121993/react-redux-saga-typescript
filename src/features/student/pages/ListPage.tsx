@@ -12,7 +12,10 @@ import {
   studentActions,
 } from '../studentSlice';
 import { selectCityList, selectCityMap } from 'features/city/citySilce';
-import { ListParams } from 'models';
+import { ListParams, Student } from 'models';
+import { useRouteMatch, useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
+import studentApi from 'api/studentApi';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +45,8 @@ export default function ListPage() {
   const loading = useAppSelector(selectStudentLoading);
   const cityMap = useAppSelector(selectCityMap);
   const cityList = useAppSelector(selectCityList);
+  const match = useRouteMatch();
+  const history = useHistory();
 
   const handlePageChange = (event: any, page: number) => {
     dispatch(
@@ -64,6 +69,23 @@ export default function ListPage() {
     dispatch(studentActions.setFilter(newFilter));
   };
 
+  const handleEditStudent = (student: Student) => {
+    history.push(`${match.path}/${student.id}`);
+  };
+
+  const handleRemoveStudent = async (student: Student) => {
+    try {
+      // Call API to remove student
+      await studentApi.remove(student?.id || '');
+
+      // Trigger re-fetch student list with current filter
+      dispatch(studentActions.setFilter({ ...filter }));
+    } catch (error) {
+      // Show toast error
+      console.log('Remove student error', error);
+    }
+  };
+
   return (
     <Box className={classes.root}>
       {/* Loading */}
@@ -71,9 +93,11 @@ export default function ListPage() {
 
       <Box className={classes.titleContainer}>
         <Typography variant="h4">Students</Typography>
-        <Button variant="contained" color="primary">
-          Add new student
-        </Button>
+        <Link to={`${match.path}/add`} style={{ textDecoration: 'none' }}>
+          <Button variant="contained" color="primary">
+            Add new student
+          </Button>
+        </Link>
       </Box>
 
       {/* Student Filters */}
@@ -87,7 +111,12 @@ export default function ListPage() {
       </Box>
 
       {/* Student Table */}
-      <StudentTable studentList={studentList} cityMap={cityMap} />
+      <StudentTable
+        studentList={studentList}
+        cityMap={cityMap}
+        onEdit={handleEditStudent}
+        onRemove={handleRemoveStudent}
+      />
 
       {/* Pagination */}
       <Box mt={2} display="flex" justifyContent="center">
