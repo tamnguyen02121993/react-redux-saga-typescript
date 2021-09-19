@@ -1,9 +1,10 @@
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, CircularProgress } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { useAppSelector } from 'app/hooks';
 import { InputField, RadioGroupField, SelectField } from 'components/FormFields';
 import { selectCityOptions } from 'features/city/citySilce';
 import { Student } from 'models';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -44,15 +45,26 @@ export interface StudentFormProps {
 }
 
 export default function StudentForm({ initialValues, onSubmit }: StudentFormProps) {
-  const { control, handleSubmit } = useForm<Student>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<Student>({
     defaultValues: initialValues,
     resolver: yupResolver(schema),
   });
 
   const cityOptions = useAppSelector(selectCityOptions);
+  const [error, setError] = useState('');
 
-  const handleFormSubmit = (formValues: Student) => {
-    console.log(formValues);
+  const handleFormSubmit = async (formValues: Student) => {
+    try {
+      // Clear previous error message
+      setError('');
+      await onSubmit?.(formValues);
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
   return (
     <Box maxWidth={400}>
@@ -80,9 +92,12 @@ export default function StudentForm({ initialValues, onSubmit }: StudentFormProp
         <InputField name="mark" control={control} label="Mark" type="number" />
 
         <SelectField name="city" control={control} label="City" options={cityOptions} />
+
+        {error && <Alert severity="error">{error}</Alert>}
+
         <Box>
-          <Button type="submit" variant="contained" color="primary">
-            Save
+          <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
+            {isSubmitting && <CircularProgress color="primary" size={16} />} &nbsp;Save
           </Button>
         </Box>
       </form>
