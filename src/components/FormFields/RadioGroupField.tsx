@@ -32,13 +32,13 @@ export function RadioGroupField({
 }: RadioGroupFieldProps) {
   const {
     field: { value, onBlur, onChange },
-    fieldState: { error },
+    fieldState: { invalid, error },
   } = useController({
     name,
     control,
   });
   return (
-    <FormControl component="fieldset" disabled={disabled}>
+    <FormControl component="fieldset" disabled={disabled} error={invalid} fullWidth>
       <FormLabel component="legend">{label}</FormLabel>
       <RadioGroup row={row} name={name} onChange={onChange} onBlur={onBlur} value={value}>
         {options.map((option) => (

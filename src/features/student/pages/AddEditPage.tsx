@@ -31,10 +31,10 @@ export default function AddEditPage() {
 
   const initialValues: Student = {
     name: '',
-    age: '',
+    age: 0,
+    mark: 0,
     city: '',
-    gender: '',
-    mark: '',
+    gender: 'male',
     ...student,
   } as Student;
 

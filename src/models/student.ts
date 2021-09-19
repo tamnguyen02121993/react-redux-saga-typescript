@@ -6,6 +6,6 @@ export interface Student {
   gender: 'male' | 'female';
   city: string;
 
-  createdAt?: number;
-  updatedAt?: number;
+  // createdAt?: number;
+  // updatedAt?: number;
 }

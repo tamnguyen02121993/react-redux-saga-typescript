@@ -21,13 +21,13 @@ export interface SelectFieldProps {
 export function SelectField({ name, control, label, disabled, options }: SelectFieldProps) {
   const {
     field: { value, onBlur, onChange },
-    fieldState: { error },
+    fieldState: { invalid, error },
   } = useController({
     name,
     control,
   });
   return (
-    <FormControl variant="outlined" size="small" fullWidth disabled={disabled}>
+    <FormControl variant="outlined" size="small" fullWidth error={invalid} disabled={disabled}>
       <InputLabel id={`${name}_label`}>{label}</InputLabel>
       <Select
         labelId={`${name}_label`}
