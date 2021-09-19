@@ -5,6 +5,7 @@ import { ChevronLeft } from '@material-ui/icons';
 import { Student } from 'models';
 import studentApi from 'api/studentApi';
 import StudentForm from '../components/StudentForm';
+import { toast } from 'react-toastify';
 
 export default function AddEditPage() {
   const { studentId } = useParams<{ studentId: string }>();
@@ -33,6 +34,8 @@ export default function AddEditPage() {
     } else {
       await studentApi.add(formValues);
     }
+
+    toast.success('Save student successfully!');
     history.push('/admin/students');
   };
 

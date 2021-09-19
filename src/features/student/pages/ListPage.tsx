@@ -16,6 +16,7 @@ import { ListParams, Student } from 'models';
 import { useRouteMatch, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import studentApi from 'api/studentApi';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,6 +78,8 @@ export default function ListPage() {
     try {
       // Call API to remove student
       await studentApi.remove(student?.id || '');
+
+      toast.success('Remove student successfully!');
 
       // Trigger re-fetch student list with current filter
       dispatch(studentActions.setFilter({ ...filter }));

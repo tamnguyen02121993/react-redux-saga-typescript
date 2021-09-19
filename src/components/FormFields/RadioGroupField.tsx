@@ -38,7 +38,7 @@ export function RadioGroupField({
     control,
   });
   return (
-    <FormControl component="fieldset" disabled={disabled} error={invalid} fullWidth>
+    <FormControl component="fieldset" disabled={disabled} error={invalid} fullWidth margin="normal">
       <FormLabel component="legend">{label}</FormLabel>
       <RadioGroup row={row} name={name} onChange={onChange} onBlur={onBlur} value={value}>
         {options.map((option) => (

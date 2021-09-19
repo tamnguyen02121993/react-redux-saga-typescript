@@ -27,7 +27,14 @@ export function SelectField({ name, control, label, disabled, options }: SelectF
     control,
   });
   return (
-    <FormControl variant="outlined" size="small" fullWidth error={invalid} disabled={disabled}>
+    <FormControl
+      variant="outlined"
+      size="small"
+      fullWidth
+      error={invalid}
+      disabled={disabled}
+      margin="normal"
+    >
       <InputLabel id={`${name}_label`}>{label}</InputLabel>
       <Select
         labelId={`${name}_label`}
