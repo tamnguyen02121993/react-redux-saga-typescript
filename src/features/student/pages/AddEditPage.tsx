@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft } from '@material-ui/icons';
 import { Student } from 'models';
 import studentApi from 'api/studentApi';
+import StudentForm from '../components/StudentForm';
 
 export default function AddEditPage() {
   const { studentId } = useParams<{ studentId: string }>();
@@ -24,6 +25,19 @@ export default function AddEditPage() {
     })();
   }, [studentId]);
 
+  const handleStudentFormSubmit = (formValues: Student) => {
+    // TODO: Handle submit form here
+  };
+
+  const initialValues: Student = {
+    name: '',
+    age: '',
+    city: '',
+    gender: '',
+    mark: '',
+    ...student,
+  } as Student;
+
   return (
     <Box>
       <Link to={'/admin/students'}>
@@ -33,6 +47,13 @@ export default function AddEditPage() {
       </Link>
 
       <Typography variant="h4">{isEdit ? 'Update student info' : 'Add new student'}</Typography>
+
+      {/* Student Form */}
+      {(!isEdit || Boolean(student)) && (
+        <Box mt={3}>
+          <StudentForm initialValues={initialValues} onSubmit={handleStudentFormSubmit} />
+        </Box>
+      )}
     </Box>
   );
 }
