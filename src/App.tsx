@@ -12,7 +12,7 @@ function App() {
 
   return (
     <Switch>
-      <Route path="/login">
+      <Route path="/" exact>
         <LoginPage />
       </Route>
 

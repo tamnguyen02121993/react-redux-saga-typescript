@@ -25,7 +25,7 @@ function* handleLogout() {
   yield delay(500);
   localStorage.removeItem('access_token');
   // TODO: Redirect to login page
-  yield put(push('/login'));
+  yield put(push('/'));
 }
 
 function* watchLoginFlow() {
