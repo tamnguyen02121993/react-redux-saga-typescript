@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
+const baseApiUrl = process.env.REACT_APP_BASE_API_URL;
 const axiosClient = axios.create({
-  baseURL: 'http://js-post-api.herokuapp.com/api',
+  baseURL: baseApiUrl,
   headers: {
     'Content-Type': 'application/json',
   },
