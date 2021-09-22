@@ -8,7 +8,7 @@ export function PrivateRoute(props: RouteProps) {
 
   const isLogggedIn = Boolean(localStorage.getItem('access_token'));
   if (!isLogggedIn) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
   }
 
   return <Route {...props} />;

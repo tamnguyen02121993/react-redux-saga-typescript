@@ -108,7 +108,7 @@ export default function Dashboard() {
         <Box mt={4}>
           <Grid container spacing={3}>
             {rankingByCityList.map((ranking) => (
-              <Grid item xs={12} md={6} lg={6}>
+              <Grid item xs={12} md={6} lg={6} key={ranking.cityName}>
                 <Widget title={ranking.cityName}>
                   <StudentRankingList studentList={ranking.rankingList} />
                 </Widget>

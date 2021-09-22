@@ -13,7 +13,6 @@ function* handleLogin(payload: LoginPayload) {
         name: 'Easy Frontend',
       })
     );
-    debugger;
     // TODO: Redirect to admin page
     yield put(push('/admin/dashboard'));
   } catch (error: any) {

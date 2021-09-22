@@ -22,7 +22,6 @@ export default function LoginPage() {
   const dispatch = useAppDispatch();
 
   const handleLoginClick = () => {
-    debugger;
     dispatch(
       authActions.login({
         username: '',
