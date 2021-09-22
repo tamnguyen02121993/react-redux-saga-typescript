@@ -1,6 +1,7 @@
 import { Box, Button, makeStyles, Paper, Typography } from '@material-ui/core';
 import { useAppDispatch } from 'app/hooks';
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import { authActions } from '../authSlice';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,11 @@ export default function LoginPage() {
       })
     );
   };
+
+  const isLogggedIn = Boolean(localStorage.getItem('access_token'));
+  if (isLogggedIn) {
+    return <Redirect to="/admin/dashboard" />;
+  }
 
   return (
     <div className={classes.root}>
